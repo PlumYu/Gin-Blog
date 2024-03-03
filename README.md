@@ -13,3 +13,13 @@
 5. vue 的项目搭建
 6. vue 的路由中间件
 7. vuex 的使用
+
+## 环境
+go 版本: go version go1.21.4 windows/amd64
+安装其他版本命令 : 
+```go
+go get golang.org/dl/go1.13.8
+go $GOPATH/bin/go1.13.8 down
+// 指定 go 版本执行文件
+go $GOPATH/bin/go1.13.8 run filename
+```
