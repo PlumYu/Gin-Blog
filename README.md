@@ -19,7 +19,7 @@ go 版本: go version go1.21.4 windows/amd64
 安装其他版本命令 : 
 ```go
 go get golang.org/dl/go1.13.8
-go $GOPATH/bin/go1.13.8 down
+go $GOPATH/bin/go1.13.8 download
 // 指定 go 版本执行文件
 go $GOPATH/bin/go1.13.8 run filename
 ```
