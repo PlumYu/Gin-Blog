@@ -1,5 +1,5 @@
-【评论送书】Go语言 Gin+Vue 前后端分离实战 - OceanLearn
-【【评论送书】Go语言 Gin+Vue 前后端分离实战 - OceanLearn】https://www.bilibili.com/video/BV1CE411H7bQ?vd_source=4edab2c311fa4f49601588d3604bc273
+# Go语言 Gin+Vue 前后端分离实战 - OceanLearn
+## Go语言 Gin+Vue 前后端分离实战 - OceanLearn】https://www.bilibili.com/video/BV1CE411H7bQ?vd_source=4edab2c311fa4f49601588d3604bc273
 本教程是 Gin + Vue 前后端分离项目实战， 课程采用循序渐进的方式，有简单到复杂逐步实现MVC架构
 项目适合人群：有一定编程经验的程序猿，在开始学习本视频之前你需要具备一下技能
 1.基本的go语言语法
