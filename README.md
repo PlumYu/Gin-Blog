@@ -29,4 +29,4 @@ node 版本 v14.21.3
 
 yarn 版本 1.22.21
 
-vue_v  @vue/cli 5.0.8
+vue-V  @vue/cli 5.0.8
