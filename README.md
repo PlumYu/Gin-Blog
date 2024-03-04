@@ -24,6 +24,9 @@ go $GOPATH/bin/go1.13.8 download
 go $GOPATH/bin/go1.13.8 run filename
 ```
 node 版本 v14.21.3
+
 可以使用 nvm 下载和切换指定版本的 node
+
 yarn 版本 1.22.21
+
 vue_v  @vue/cli 5.0.8
