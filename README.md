@@ -23,3 +23,5 @@ go $GOPATH/bin/go1.13.8 download
 // 指定 go 版本执行文件
 go $GOPATH/bin/go1.13.8 run filename
 ```
+node 版本 v10.24.1
+可以使用 nvm 下载和切换指定版本的 node
