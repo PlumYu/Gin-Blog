@@ -14,11 +14,20 @@ import (
 )
 
 func Register(context *gin.Context) {
+	// 获取参数  获取不到~
+	//// 使用 map 获取请求的参数
+	//var requestMap = make(map[string]string)
+	//json.NewDecoder(context.Request.Body).Decode(&requestMap)
+	// 使用结构体来获取参数
+	var requestUser = model.User{}
+	//json.NewDecoder(context.Request.Body).Decode(&requestUser)
+	// gin 框架提供的 bind 参数
+	context.Bind(&requestUser)
 	// 获取参数
 	DB := common.GetDB()
-	name := context.PostForm("name")
-	telephone := context.PostForm("telephone")
-	password := context.PostForm("password")
+	name := requestUser.Name
+	telephone := requestUser.Telephone
+	password := requestUser.Password
 	// 数据验证
 	if len(telephone) != 11 {
 		response.Response(context, http.StatusUnprocessableEntity, 422, nil, "手机号必须为 11 位")
@@ -49,18 +58,35 @@ func Register(context *gin.Context) {
 		Password:  string(hasedPassword),
 	}
 	DB.Create(&newUser)
-	context.JSON(200, gin.H{
-		"code": "200",
-		"msg":  "Register success！",
-	})
+
+	// 发放 token
+	token, err := common.ReleaseToken(newUser)
+	if err != nil {
+		response.Response(context, http.StatusInternalServerError, 500, nil, "系统异常")
+		log.Printf("token generate error : %v", err)
+		return
+	}
+	// 返回结果
+	response.Success(context, gin.H{"token": token}, "登录成功")
 }
 
 func Login(context *gin.Context) {
+	// 获取参数  获取不到~
+	//// 使用 map 获取请求的参数
+	//var requestMap = make(map[string]string)
+	//json.NewDecoder(context.Request.Body).Decode(&requestMap)
+	// 使用结构体来获取参数
+	var requestUser = model.User{}
+	//json.NewDecoder(context.Request.Body).Decode(&requestUser)
+	// gin 框架提供的 bind 参数
+	context.Bind(&requestUser)
 	// 获取参数
 	DB := common.GetDB()
-	telephone := context.PostForm("telephone")
-	password := context.PostForm("password")
+	name := requestUser.Name
+	telephone := requestUser.Telephone
+	password := requestUser.Password
 	// 数据验证
+	log.Println(name, telephone, password)
 	if len(telephone) != 11 {
 		response.Response(context, http.StatusUnprocessableEntity, 422, nil, "手机号必须为 11 位")
 		return
@@ -69,6 +95,7 @@ func Login(context *gin.Context) {
 		response.Response(context, http.StatusUnprocessableEntity, 422, nil, "密码不能少于 6 位")
 		return
 	}
+
 	// 判断手机号是否存在
 	var user model.User
 	DB.Where("telephone = ?", telephone).First(&user)
