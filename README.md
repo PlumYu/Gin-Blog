@@ -51,7 +51,7 @@ datasources:
 后端项目运行
 
 ```go
-进项目路径
+# 进入项目路径
 cd BackEnd
 go run routes.go main.go
 // 或者
