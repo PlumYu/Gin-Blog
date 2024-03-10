@@ -30,3 +30,41 @@ node 版本 v14.21.3
 yarn 版本 1.22.21
 
 vue-V  @vue/cli 5.0.8
+
+数据库 mysql
+
+后端配置文件在 `config/application.yml` 文件中， 参考与如下, 根据自己本地修改
+```yml
+server:
+  port: 1016 // 后端端口号
+datasources:
+  driverName: mysql // 数据库驱动类型
+  host: 127.0.0.1
+  port: 3306
+  database: ginessential // 数据库名称
+  username: root // 本地数据库账号
+  password: root // 本地数据库密码
+  charset: utf8mb4
+```
+## 运行
+
+后端项目运行
+
+```go
+# 进入项目路径
+cd BackEnd
+go run routes.go main.go
+// 或者
+go build
+./Blog
+```
+前端项目运行
+
+```
+# 进入前端项目目录
+cd  frontend
+# 安装项目依赖
+yarn install
+# 运行项目
+yarn serve
+```
