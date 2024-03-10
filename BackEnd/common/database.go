@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/jinzhu/gorm"
 	"github.com/spf13/viper"
+	"net/url"
 )
 
 var DB *gorm.DB
@@ -17,13 +18,15 @@ func InitDB() *gorm.DB {
 	username := viper.GetString("datasources.username")
 	password := viper.GetString("datasources.password")
 	charset := viper.GetString("datasources.charset")
-	args := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=true",
+	loc := viper.GetString("datasources.loc")
+	args := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=true&loc=%s",
 		username,
 		password,
 		host,
 		port,
 		database,
-		charset)
+		charset,
+		url.QueryEscape(loc))
 	db, err := gorm.Open(driverName, args)
 	if err != nil {
 		panic("failed to connect database, err: " + err.Error())
