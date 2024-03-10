@@ -50,7 +50,7 @@ import { required, minLength } from 'vuelidate/lib/validators';
 
 import customValidator from '@/helper/validator';
 
-import { mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -79,7 +79,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('userModule', ['SET_TOKEN', 'SET_USERINFO']),
+    ...mapActions('userModule', { userRegister: 'register'}),
     validateState(name) {
       const { $dirty, $error } = this.$v.user[name];
       return $dirty ? !$error : null;
