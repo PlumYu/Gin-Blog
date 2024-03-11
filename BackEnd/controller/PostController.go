@@ -8,14 +8,33 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/jinzhu/gorm"
 	"log"
+	"strconv"
 )
 
 type IPostController interface {
 	RestController
+	PageList(context *gin.Context)
 }
 
 type PostController struct {
 	DB *gorm.DB
+}
+
+func (p PostController) PageList(context *gin.Context) {
+	// 获取分页参数
+	pageNum, _ := strconv.Atoi(context.DefaultQuery("pageNum", "1"))
+	pageSize, _ := strconv.Atoi(context.DefaultQuery("pageSize", "20"))
+
+	// 分页
+	var posts []model.Post
+	p.DB.Order("created_at desc").Offset((pageNum - 1) * pageSize).Limit(pageSize).Find(&posts)
+
+	// 记录的总条数
+	var total int
+	p.DB.Model(model.Post{}).Count(&total)
+
+	// 返回数据
+	response.Success(context, gin.H{"data": posts, "total": total}, "成功")
 }
 
 func (p PostController) Create(context *gin.Context) {
@@ -87,7 +106,7 @@ func (p PostController) Show(context *gin.Context) {
 	postId := context.Param("id")
 
 	var post model.Post
-	if p.DB.Where("id = ?", postId).First(&post).RecordNotFound() {
+	if p.DB.Preload("Category").Where("id = ?", postId).First(&post).RecordNotFound() {
 		response.Fail(context, nil, "文章不存在")
 		return
 	}
